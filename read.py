@@ -1,10 +1,9 @@
-import uproot as ur # https://hub.mybinder.org/user/scikit-hep-uproot-o2d8jf8i/notebooks/binder/tutorial.ipynb
-#from root_pandas import read_root # https://github.com/scikit-hep/root_pandas
 import numpy as np
 import sys
+import uproot as ur # https://hub.mybinder.org/user/scikit-hep-uproot-o2d8jf8i/notebooks/binder/tutorial.ipynb
+#from root_pandas import read_root # https://github.com/scikit-hep/root_pandas
 
 input_file = sys.argv[1]
-
 data = ur.open(input_file)
 
 def inspect_file(data):
@@ -22,6 +21,7 @@ def inspect_file(data):
             # first element(s) exemplary
             #print "  ", data[key_name].arrays([key_name2], outputtype=tuple)[0][0].size
             print "  ", data[key_name].arrays([key_name2], outputtype=tuple)[0][1:7]
+
 
 #inspect_file(data)
 # TODO: add trigger ID
