@@ -6,27 +6,7 @@ import uproot as ur # https://hub.mybinder.org/user/scikit-hep-uproot-o2d8jf8i/n
 input_file = sys.argv[1]
 data = ur.open(input_file)
 
-def inspect_file(data):
-    for index, value in enumerate(data.keys()):
-        key_name = value[:-2]
-        print "\n\n", index, value, len(data[key_name].keys())
-        print data[key_name].keys() 
-        for index2, value2 in enumerate(data[key_name].keys()):
-            key_name2 = value2
-            print "\n  ", index2, value2, data[key_name].arrays([key_name2], outputtype=tuple)[0].size
-            # pure object 
-            #print "  ", data[key_name][key_name2], len(data[key_name][key_name2])
-            # data array
-            #print "  ", data[key_name].arrays([key_name2], outputtype=tuple)[0]
-            # first element(s) exemplary
-            #print "  ", data[key_name].arrays([key_name2], outputtype=tuple)[0][0].size
-            print "  ", data[key_name].arrays([key_name2], outputtype=tuple)[0][1:7]
-
-
-#inspect_file(data)
-# TODO: add trigger ID
 # TODO: add DUTHitNumber 
-
 
 # individual access
 #print data.keys()
@@ -49,6 +29,9 @@ track_x, track_y = data['Tracks'].arrays(['xPos', 'yPos'], outputtype=tuple)
 
 hits_ID = data['Hits'].arrays(['ID'], outputtype=tuple)[0]
 hits_x, hits_y, hits_z = data['Hits'].arrays(['xPos', 'yPos', 'zPos'], outputtype=tuple)
+
+
+
 
 #zs_ID = data['ZeroSuppressed'].arrays(['ID'], outputtype=tuple)
 #print zs_ID

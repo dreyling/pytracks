@@ -10,7 +10,7 @@ def inspect_file(data):
         for index2, value2 in enumerate(data[key_name].keys()):
             key_name2 = value2
             print "\n  ", index2, value2, data[key_name].arrays([key_name2], outputtype=tuple)[0].size
-            if False:
+            if True:
                 print "  ", data[key_name].arrays([key_name2], outputtype=tuple)[0][0]
 
 input_file = sys.argv[1]
