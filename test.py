@@ -1,9 +1,32 @@
 import numpy as np
 import sys
+input_file = sys.argv[1]
+
+########################################3
+# PyROOT
+from ROOT import TFile #, TF1, TCanvas, TH1
+data = TFile(input_file)
+
+tracks_tree = data.Get('Tracks') 
+hits_tree = data.Get('Hits') 
+
+n = 0
+for evt in hits_tree:
+    print evt.ID
+    print evt.xPos
+    print evt.xPos.size()
+    n += 1
+    if n > 10:
+        break
+    pass
+
+#print tracks_tree, hits_tree
+#print tracks_tree.GetListOfLeaves().At(0), hits_tree.GetListOfLeaves().At(0).GetName()
+#print hits_tree.GetEntries()
+########################################3
+# uproot
 import uproot as ur # https://hub.mybinder.org/user/scikit-hep-uproot-o2d8jf8i/notebooks/binder/tutorial.ipynb
 #from root_pandas import read_root # https://github.com/scikit-hep/root_pandas
-
-input_file = sys.argv[1]
 data = ur.open(input_file)
 
 # TODO: add DUTHitNumber 
@@ -16,10 +39,10 @@ data = ur.open(input_file)
 #print len(data["Tracks"].keys())
 
 track_evtnr = data['Tracks'].arrays(['eventNumber'], outputtype=tuple)[0]
-track_ID = data['Tracks'].arrays(['ID'], outputtype=tuple)[0]
+track_ID = data['Tracks'].arrays(['planeID'], outputtype=tuple)[0]
 track_x, track_y = data['Tracks'].arrays(['xPos', 'yPos'], outputtype=tuple)
-#print track_x.shape, len(track_x)
-#print track_x, len(track_x)
+print track_x.shape, len(track_x)
+print track_x, len(track_x)
 
 # stack it
 #print len(np.hstack(track_evtnr))
@@ -29,7 +52,13 @@ track_x, track_y = data['Tracks'].arrays(['xPos', 'yPos'], outputtype=tuple)
 
 hits_ID = data['Hits'].arrays(['ID'], outputtype=tuple)[0]
 hits_x, hits_y, hits_z = data['Hits'].arrays(['xPos', 'yPos', 'zPos'], outputtype=tuple)
+print hits_x.shape, len(hits_x)
+print hits_x[0:10], len(hits_x)
 
+
+
+
+exit()
 
 
 
@@ -118,3 +147,31 @@ exit()
 #print data['Tracks'].arrays(data["Tracks"].keys())
 #print data['Tracks'].arrays(['eventNumber'])['eventNumber']
 #print data['Tracks'].array('eventNumber')
+
+print data.allkeys()
+print data.items()
+
+print data["Tracks"].allkeys()
+print data["Hits"].allkeys()
+print data["Hits"]["xPos"]
+
+print data["Tracks"].show()
+print data["Hits"].show()
+
+print data["Tracks"].arrays(["xPos"])
+print data["Hits"].arrays(["xPos"])
+print data["Hits"]["xPos"].array()
+
+print data["Hits"]["xPos"].numitems()
+
+print data["Hits"]["xPos"].compressedbytes()
+print data["Hits"]["xPos"].uncompressedbytes()
+print data["Hits"]["xPos"].compressionratio()
+
+print data["Hits"]["xPos"].basket_entrystart(0)
+print data["Hits"]["xPos"].basket_entrystop(0)
+print data["Hits"]["xPos"].basket_numitems(0)
+print data["Hits"]["xPos"].basket_numentries(0)
+
+print data["Hits"]["xPos"].array()
+print data["Hits"]["xPos"].array(blocking=False)
