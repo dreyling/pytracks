@@ -106,11 +106,67 @@ hits_x, hits_y, hits_z = data['Hits'].arrays(['xPos', 'yPos', 'zPos'], outputtyp
 #print hits_x.shape, len(hits_x)
 
 print "first track in example"
+test = 4
+print "event number", track_evtnr[test]
+print "trigger ID  ", track_trigID[test]
+print "plane ID    ", track_planeID[test]
+print "track x     ", track_x[test]
+print "chi2        ", track_chi2[test]          # only one value
+print "hits ID     ", hits_ID[track_evtnr[test]-1]
+print "hits x      ", hits_x[track_evtnr[test]-1]
+
+print hits_ID[track_evtnr-1], len(hits_ID[track_evtnr-1])
+print hits_ID[~(track_evtnr-1)], len(hits_ID[~track_evtnr-1])
+
+#print len(np.where(track_chi2 < 
+final_array_length = len(np.hstack(track_planeID))/plane_length
+chi_cut = 20
+chi2_okay = np.array([])
+
+# single track id
+
 index = 0
-print "event number", track_evtnr[index]
-print "trigger ID  ", track_trigID[index]
-print "plane ID    ", track_planeID[index]
-print "track x     ", track_x[index]
-print "chi2        ", track_chi2[index][0]          # only one value
-print "hits ID     ", hits_ID[track_evtnr[index]-1]
-print "hits x      ", hits_x[track_evtnr[index]-1]
+single_track_ID = np.zeros(final_array_length, dtype=int)
+i = 0
+while i < final_array_length:
+    #print "index i", i, index
+    #print track_planeID[index] 
+    multiplicity = len(track_planeID[index])/plane_length
+    #print multiplicity
+    for n in range(multiplicity):
+        #print track_evtnr[index]
+        single_track_ID[i+n] = track_evtnr[index]
+    i += multiplicity
+    index += 1
+print single_track_ID
+
+trackXs =  np.hstack(track_x).reshape(-1, plane_length)
+trackYs =  np.hstack(track_y).reshape(-1, plane_length)
+planeIDs = np.hstack(track_planeID).reshape(-1, plane_length)
+chi2 = np.hstack(track_planeID).reshape(-1, plane_length)
+
+for index, evtnr in enumerate(single_track_ID):
+    
+
+
+exit()
+
+
+
+for index, evtnr in enumerate(track_evtnr[0:10]):
+    print evtnr, len(track_trigID[index])/plane_length
+    for multiplicity in range(1,len(track_trigID)/plane_length):
+        multiplicity = 1
+    if len(track_trigID)/plane_length > multiplicity:
+        #track_trigID
+        print evtnr, index
+
+
+
+
+
+exit()
+
+#print len(trackX.T[0])
+print "total tracks (stacked shape):", trackX.shape, "size:", trackX.size, "length:", len(trackX)
+
