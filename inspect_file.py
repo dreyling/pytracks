@@ -10,11 +10,13 @@ def inspect_file(data):
         for index2, value2 in enumerate(data[key_name].keys()):
             key_name2 = value2
             print "\n  ", index2, value2, data[key_name].arrays([key_name2], outputtype=tuple)[0].size
+            # print out the first and last entries
             if True:
                 #print "  ", data[key_name].arrays([key_name2], outputtype=tuple)
                 # just the first element
-                print "  ", data[key_name].arrays([key_name2], outputtype=tuple)[0][:7]
-                print "  ", data[key_name].arrays([key_name2], outputtype=tuple)[0][-6:]
+                print "  ", data[key_name].arrays([key_name2], outputtype=tuple)[0][:5]
+                print "   ..."
+                print "  ", data[key_name].arrays([key_name2], outputtype=tuple)[0][-5:]
 
 input_file = sys.argv[1]
 data = ur.open(input_file)
